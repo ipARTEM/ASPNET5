@@ -26,8 +26,29 @@ namespace ASPNET5
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            //services.AddRazorPages();
+            //************************
+            services.AddHttpsRedirection(options =>
+            {
+                options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
+                options.HttpsPort = 44388;
+            });
+
+            //*********************
+
+            services.AddHsts(options =>
+            {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(60);
+                options.ExcludedHosts.Add("khimin.ru");
+                options.ExcludedHosts.Add("www.khimin.ru");
+            });
+
+
         }
+        
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -380,10 +401,28 @@ namespace ASPNET5
 
             //***********************
 
-            app.Map("/hello", ap => ap.Run(async (context) =>
+            //app.Map("/hello", ap => ap.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync($"Hello ASP.NET Core");
+            //}));
+
+            //******************
+
+            if (env.IsDevelopment())
             {
-                await context.Response.WriteAsync($"Hello ASP.NET Core");
-            }));
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseHsts();
+            }
+
+
+            app.UseHttpsRedirection();
+            app.Run(async (context) =>
+            {
+                await context.Response.WriteAsync("Hello World!");
+            });
 
 
 
