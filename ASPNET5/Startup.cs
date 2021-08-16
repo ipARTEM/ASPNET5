@@ -240,12 +240,12 @@ namespace ASPNET5
 
             //****************************
 
-            app.UseDirectoryBrowser();   //  позволяет пользователям просматривать содержимое каталогов на сайте:
-            app.UseStaticFiles();
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World");
-            });
+            //app.UseDirectoryBrowser();   //  позволяет пользователям просматривать содержимое каталогов на сайте:
+            //app.UseStaticFiles();
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World");
+            //});
 
             //***********************************
 
@@ -260,6 +260,130 @@ namespace ASPNET5
             //{
             //    await context.Response.WriteAsync("Hello World");
             //});
+
+            //***********************************
+
+            //app.UseStaticFiles(); // обрабатывает все запросы к wwwroot
+            //app.UseStaticFiles(new StaticFileOptions() // обрабатывает запросы к каталогу wwwroot/html
+            //{
+            //    FileProvider = new PhysicalFileProvider(
+            //        Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\html")),
+            //    RequestPath = new PathString("/pages")
+            //});
+
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World");
+            //});
+
+            //*****************************
+
+            //app.UseFileServer();
+
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World");
+            //});
+
+            //*********************************
+
+            //app.UseFileServer(new FileServerOptions
+            //{
+            //    EnableDirectoryBrowsing = true,
+            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\html")),
+            //    RequestPath = new PathString("/pages"),
+            //    EnableDefaultFiles = false
+            //});
+
+            //***************************
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //app.Run(async (context) =>
+            //{
+            //    int x = 0;
+            //    int y = 8 / x;
+            //    await context.Response.WriteAsync($"Result = {y}");
+
+            //});
+
+            //************************************
+            //env.EnvironmentName = "Production";
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //app.Run(async (context) =>
+            //{
+            //    int x = 0;
+            //    int y = 8 / x;
+            //    await context.Response.WriteAsync($"Result = {y}");
+            //});
+
+            //*************************************
+
+            //env.EnvironmentName = "Production";
+
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/error");
+            //}
+
+            //app.Map("/error", ap => ap.Run(async context =>
+            //{
+            //    await context.Response.WriteAsync("DivideByZeroException occured!");
+            //}));
+
+            //app.Run(async (context) =>
+            //{
+            //    int x = 0;
+            //    int y = 8 / x;
+            //    await context.Response.WriteAsync($"Result = {y}");
+            //});
+
+            //************************************
+
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+
+            //// обработка ошибок HTTP
+            ////app.UseStatusCodePages();       // вариант 1
+
+            ////app.UseStatusCodePages("text/plain", "Error. Status code : {0}");       // вариант 2
+
+            //app.UseStatusCodePagesWithReExecute("/error", "?code={0}");        // вариант 3
+
+            //app.Map("/hello", ap => ap.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync($"Hello ASP.NET Core");
+            //}));
+
+            //// обработка ошибок HTTP
+            //app.UseStatusCodePagesWithReExecute("/error", "?code={0}");
+
+            //app.Map("/error", ap => ap.Run(async context =>
+            //{
+            //    await context.Response.WriteAsync($"Err: {context.Request.Query["code"]}");
+            //}));
+
+            //app.Map("/hello", ap => ap.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync($"Hello ASP.NET Core");
+            //}));
+
+            //***********************
+
+            app.Map("/hello", ap => ap.Run(async (context) =>
+            {
+                await context.Response.WriteAsync($"Hello ASP.NET Core");
+            }));
 
 
 
