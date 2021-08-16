@@ -21,6 +21,7 @@ namespace ASPNET5
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseWebRoot("static");      //  /content.html
                 });
     }
 }

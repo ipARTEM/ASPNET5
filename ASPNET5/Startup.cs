@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -169,12 +171,98 @@ namespace ASPNET5
 
             //*******************************
             // извне  получение токина
-            app.UseToken("8888");
+            //app.UseToken("8888");
 
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World");
+            //});
+
+            //****************************
+
+            //app.UseMiddleware<AuthenticationMiddleware>();
+            //app.UseMiddleware<RoutingMiddleware>();
+
+            //*******************************
+
+            //app.UseMiddleware<ErrorHandlingMiddleware>();
+            //app.UseMiddleware<AuthenticationMiddleware>();        //https://localhost:44397/about?token=121321
+            //app.UseMiddleware<RoutingMiddleware>();
+
+            //**************************
+
+            //app.Run(async (context) =>
+            //{
+            //    context.Response.Headers["Content-Type"] = "text/html; charset=utf-8";
+
+            //    if (env.IsEnvironment("Test")) // Если проект в состоянии "Test"
+            //    {
+            //        await context.Response.WriteAsync("В состоянии тестирования");
+            //    }
+            //    else
+            //    {
+            //        await context.Response.WriteAsync("В процессе разработки или в продакшене");
+            //    }
+            //});
+
+            //***************************
+
+            //app.UseStaticFiles();   // добавляем поддержку статических файлов
+
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World");        // /index.html
+            //});
+
+            //************************************
+
+            //app.UseDefaultFiles();
+            //app.UseStaticFiles();
+
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World11");
+            //});
+
+            //*************************************
+
+            //DefaultFilesOptions options = new DefaultFilesOptions();
+            //options.DefaultFileNames.Clear(); // удаляем имена файлов по умолчанию
+            //options.DefaultFileNames.Add("hello.html"); // добавляем новое имя файла
+            //app.UseDefaultFiles(options); // установка параметров
+
+            //app.UseStaticFiles();
+
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World12");
+            //});
+
+            //****************************
+
+            app.UseDirectoryBrowser();   //  позволяет пользователям просматривать содержимое каталогов на сайте:
+            app.UseStaticFiles();
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello World");
             });
+
+            //***********************************
+
+            //app.UseDirectoryBrowser(new DirectoryBrowserOptions()
+            //{
+            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\html")),
+
+            //    RequestPath = new PathString("/pages")
+            //});
+            //app.UseStaticFiles();
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World");
+            //});
+
+
+
 
 
         }
