@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ASPNET5
@@ -23,18 +24,22 @@ namespace ASPNET5
 
         public IConfiguration Configuration { get; }
 
+        private IServiceCollection _services;
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddRazorPages();
             //************************
-            services.AddHttpsRedirection(options =>
-            {
-                options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
-                options.HttpsPort = 44388;
-            });
+            //services.AddHttpsRedirection(options =>
+            //{
+            //    options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
+            //    options.HttpsPort = 44388;
+            //});
 
             //*********************
+
+            _services = services;                //просмотр всех видов сервисов
 
             services.AddHsts(options =>
             {
@@ -44,6 +49,10 @@ namespace ASPNET5
                 options.ExcludedHosts.Add("khimin.ru");
                 options.ExcludedHosts.Add("www.khimin.ru");
             });
+
+            //****************************
+
+            
 
 
         }
@@ -408,21 +417,42 @@ namespace ASPNET5
 
             //******************
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    app.UseHsts();
+            //}
 
 
-            app.UseHttpsRedirection();
-            app.Run(async (context) =>
+            //app.UseHttpsRedirection();
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World!");
+            //});
+
+            //**************************
+            app.Run(async context =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                var sb = new StringBuilder();
+                sb.Append("<h1>Все сервисы</h1>");
+                sb.Append("<table>");
+                sb.Append("<tr><th>Тип</th><th>Lifetime</th><th>Реализация</th></tr>");
+                foreach (var svc in _services)
+                {
+                    sb.Append("<tr>");
+                    sb.Append($"<td>{svc.ServiceType.FullName}</td>");
+                    sb.Append($"<td>{svc.Lifetime}</td>");
+                    sb.Append($"<td>{svc.ImplementationType?.FullName}</td>");
+                    sb.Append("</tr>");
+                }
+                sb.Append("</table>");
+                context.Response.ContentType = "text/html;charset=utf-8";
+                await context.Response.WriteAsync(sb.ToString());
             });
+
 
 
 
