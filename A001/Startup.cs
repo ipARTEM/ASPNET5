@@ -107,13 +107,55 @@ namespace A001
 
         //******************************       Invoke/InvokeAsync компонентов middleware
 
+        //public void ConfigureServices(IServiceCollection services)
+        //{
+        //    services.AddTransient<IMessageSender, EmailMessageSender>();
+        //}
+        //public void Configure(IApplicationBuilder app)
+        //{
+        //    app.UseMiddleware<MessageMiddleware>();
+        //}
+
+        //***********************************
+        //public void ConfigureServices(IServiceCollection services)
+        //{
+        //    services.AddTransient<ICounter, RandomCounter>();
+        //    services.AddTransient<CounterService>();
+        //}
+        //********************************
+        //public void ConfigureServices(IServiceCollection services)
+        //{
+        //    services.AddSingleton<ICounter, RandomCounter>();
+        //    services.AddSingleton<CounterService>();
+        //}
+        //public void Configure(IApplicationBuilder app)
+        //{
+        //    app.UseMiddleware<CounterMiddleware>();
+        //}
+
+        //********************************
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IMessageSender, EmailMessageSender>();
+            //services.AddTransient<TimeService>();
+
+            services.AddTransient<ITimer, Timer>();
+            services.AddScoped<TimeService>();
         }
         public void Configure(IApplicationBuilder app)
         {
-            app.UseMiddleware<MessageMiddleware>();
+            //app.UseMiddleware<TimerMiddleware>();
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World!");
+            //});
+
+            //************************
+
+            app.UseDeveloperExceptionPage();
+            app.UseMiddleware<TimerMiddleware>();
         }
+
+
     }
 }
