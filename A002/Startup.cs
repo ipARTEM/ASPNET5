@@ -13,7 +13,7 @@ namespace A002
 {
     public class Startup
     {
-        public Startup()
+        public Startup(IConfiguration config)
         {
             // строитель конфигурации
             //var builder = new ConfigurationBuilder()
@@ -29,13 +29,27 @@ namespace A002
             //var builder = new ConfigurationBuilder().AddCommandLine(args);
             //******************************
 
-            var builder = new ConfigurationBuilder()
-                //.AddJsonFile("conf.json")
-                //.AddJsonFile("myconfig.json")
-                //.AddXmlFile("config.xml")
-                .AddIniFile("conf.ini")
-                ;
+            //var builder = new ConfigurationBuilder()
+            //    //.AddJsonFile("conf.json")
+            //    //.AddJsonFile("myconfig.json")
+            //    //.AddXmlFile("config.xml")
+            //    .AddIniFile("conf.ini")
+            //    ;
+            //*********************
+            //var builder = new ConfigurationBuilder()
+            //                .AddJsonFile("conf.json")
+            //                .AddEnvironmentVariables()
+            //                .AddInMemoryCollection(new Dictionary<string, string>
+            //                {
+            //                    {"name", "Tom"},
+            //                    {"age", "31"}
+            //                })
+            //                 .AddConfiguration(config);
 
+            //***************************
+
+            var builder = new ConfigurationBuilder()
+               .AddJsonFile("project.json");
 
             // создаем конфигурацию
             AppConfiguration = builder.Build();
@@ -57,15 +71,49 @@ namespace A002
             //AppConfiguration["lastname"] = "simpson";
             //*********************************
 
-            var color = AppConfiguration["color"];
-            var text = AppConfiguration["text"];
+            //var color = AppConfiguration["color"];
+            ////var text = AppConfiguration["text"];
 
+            //string text = AppConfiguration["JAVA_HOME"]; // определен в переменных среды окружени€
+
+            //app.Run(async (context) =>
+            //{
+            //    //await context.Response.WriteAsync($"{AppConfiguration["firstname"]} {AppConfiguration["lastname"]} - {AppConfiguration["age"]}");
+
+            //    await context.Response.WriteAsync($"<p style='color:{color};'>{text}</p>");
+            //});
+
+            //*******************************
+
+            //app.UseMiddleware<ConfigMiddleware>();
+
+            //*******************************
+
+            string projectJsonContent = GetSectionContent(AppConfiguration);
             app.Run(async (context) =>
             {
-                //await context.Response.WriteAsync($"{AppConfiguration["firstname"]} {AppConfiguration["lastname"]} - {AppConfiguration["age"]}");
-
-                await context.Response.WriteAsync($"<p style='color:{color};'>{text}</p>");
+                await context.Response.WriteAsync("{\n" + projectJsonContent + "}");
             });
         }
-    }
+
+            private string GetSectionContent(IConfiguration configSection)
+            {
+                string sectionContent = "";
+                foreach (var section in configSection.GetChildren())
+                {
+                    sectionContent += "\"" + section.Key + "\":";
+                    if (section.Value == null)
+                    {
+                        string subSectionContent = GetSectionContent(section);
+                        sectionContent += "{\n" + subSectionContent + "},\n";
+                    }
+                    else
+                    {
+                        sectionContent += "\"" + section.Value + "\",\n";
+                    }
+                }
+                return sectionContent;
+            }
+
+        }
 }
