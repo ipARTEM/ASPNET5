@@ -25,7 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A009RouterMiddleware", "A00
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A010RouteContext", "A010RouteContext\A010RouteContext.csproj", "{F7B129BF-854E-4D3A-8920-FAB747DFBBAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A011CreatingRoute", "A011CreatingRoute\A011CreatingRoute.csproj", "{9434A011-B361-408D-B79A-59AE9BD76862}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A011CreatingRoute", "A011CreatingRoute\A011CreatingRoute.csproj", "{9434A011-B361-408D-B79A-59AE9BD76862}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A012MVC", "A012MVC\A012MVC.csproj", "{CE915954-F7B0-4578-848C-4CFF5BC73A15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A013MVCCreate", "A013MVCCreate\A013MVCCreate.csproj", "{51A0B781-2313-4738-A5FC-D83F52085C2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +85,14 @@ Global
 		{9434A011-B361-408D-B79A-59AE9BD76862}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9434A011-B361-408D-B79A-59AE9BD76862}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9434A011-B361-408D-B79A-59AE9BD76862}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE915954-F7B0-4578-848C-4CFF5BC73A15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE915954-F7B0-4578-848C-4CFF5BC73A15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE915954-F7B0-4578-848C-4CFF5BC73A15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE915954-F7B0-4578-848C-4CFF5BC73A15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51A0B781-2313-4738-A5FC-D83F52085C2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51A0B781-2313-4738-A5FC-D83F52085C2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51A0B781-2313-4738-A5FC-D83F52085C2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51A0B781-2313-4738-A5FC-D83F52085C2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
